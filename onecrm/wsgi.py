@@ -16,8 +16,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'onecrm.settings')
 # os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"  #added SO
 django.setup()
 
-import django     #added SO
-django.setup()   #added SO
+# import django     #added SO
+# django.setup()   #added SO
 
 application = get_wsgi_application()
 
