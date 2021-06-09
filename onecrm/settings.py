@@ -1,5 +1,6 @@
 from pathlib import Path
 import environ
+import os
 
 env = environ.Env(
     DEBUG=(bool, False)
@@ -23,7 +24,7 @@ SECRET_KEY='y#a$47aou_ddxw)a&9zm6l9-pb$p%22ip2e=0a9pz9zxn2y&h2g'
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -47,7 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -87,24 +88,34 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',  
         # 'NAME': BASE_DIR / 'db.sqlite3',
 
-        #### New Settings   ### gcloud
+        # #### New Settings   ### gcloud
         'ENGINE': 'django.db.backends.sqlite3',  
-        'HOST': '/cloud_sql_proxy/pelagic-cat-316120:us-central1:onecrm',
-        'USER': 'onecrm_user',
+        # 'DATABASE': 'django.db.backends.postgresql_psycopg2',  
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+        'HOST': '/cloudsql/onecrm2:us-central1:onecrm2',
+        'HOST': '104.154.227.8', 
+        'USER': 'onecrm_user2',
         'PASSWORD': 'asd',
-        'NAME': 'onecrm_db',
+        'NAME': 'onecrm_db2',
+        'PORT': '5432',
 
 
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',  
-    #     # 'ENGINE': 'django.db.backends.mysql',  
-    #     'NAME': env("DB_NAME"),
-    #     'USER': env("DB_USER"),
-    #     'PASSWORD': env("DB_PASSWORD"),
-    #     'HOST': env("DB_HOST"),
-    #     'PORT': env("DB_PORT"), 
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',  
+        # 'ENGINE': 'django.db.backends.mysql',  
+        # 'NAME': env("DB_NAME"),
+        # 'USER': env("DB_USER"),
+        # 'PASSWORD': env("DB_PASSWORD"),
+        # 'HOST': env("DB_HOST"),
+        # 'PORT': env("DB_PORT"), 
     }
 }
 
+## Added to deploy on GCP
+DATABASES['default']['HOST'] = '/cloudsql/104.154.227.8'
+if os.getenv('GAE_INSTANCE'):
+    pass
+else:
+    DATABASES['default']['HOST'] = '127.0.0.1'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -142,9 +153,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'https://storage.googleapis.com/onecrm2/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "static"
+    BASE_DIR / "static" 
 ]
 STATIC_ROOT = "static_root"
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

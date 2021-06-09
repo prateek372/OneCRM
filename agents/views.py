@@ -52,6 +52,7 @@ class AgentDetailView(OrganisorAndLoginRequiredMixin, generic.DetailView):
 class AgentUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
     template_name = "agents/agent_update.html"
     form_class = AgentModelForm
+    context_object_name = "agent"
 
     def get_success_url(self):
         return reverse("agents:agent-list")

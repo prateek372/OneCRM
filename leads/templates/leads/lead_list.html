@@ -3,6 +3,21 @@
 {% block content %}
 
 <section class="text-gray-600 body-font">
+  
+  <div class="container px-1 py-12 mx-auto flex flex-wrap">
+       <div>
+           <h3 class= "text-2xl text-gray-800"> * Atleast 1 Agent is required before creating/assigning Leads</h3>
+           <h3 class= "text-2xl text-gray-800"> * Navigate to Agents to create one</h3>
+       </div>
+       {% comment %} {% if request.user.is_organisor %} {% endcomment %}
+       {% comment %} <div> {% endcomment %}
+           {% comment %} <a class="tex-gray-500 hover:text-blue-500" href="{% url 'leads:lead-create' %}">Create a New Lead </a> {% endcomment %}
+       {% comment %} </div> {% endcomment %}
+       {% comment %} {% endif %} {% endcomment %}
+   </div>
+  
+  
+  
   <div class="container px-5 py-24 mx-auto flex flex-wrap">
     <div class = "w-full mb-6 py-6 flex justify-between items-center border-b border- ">
         <div>
@@ -39,7 +54,7 @@
             </div>
         </div>
         {% endfor %}
-        {% if unassigned_leads.exists %}
+        {% comment %} {% if unassigned_leads.exists %}
             {% for lead in leads %}
             <h1>Unassigned leads</h1>
             <div class="p-4 lg:w-1/2 md:w-full">
@@ -65,7 +80,7 @@
                 </div>
             </div>
             {% endfor %}
-        {% endif %}
+        {% endif %} {% endcomment %}
     </div>
   </div>
 </section>

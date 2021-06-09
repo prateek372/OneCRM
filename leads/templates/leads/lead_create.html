@@ -8,6 +8,8 @@
     <div class="py-5 border-t border-gray-200">
         <h1 class="text-4xl text-gray-800">Create a new lead</h1>
     </div>
+
+    
     <form method="post" class="mt-5">
         {% csrf_token %}
         {{ form|crispy }}

@@ -115,6 +115,7 @@ class LeadCreateView(OrganisorAndLoginRequiredMixin,generic.CreateView):
 
 
 def lead_create(request):
+    pass
     form = LeadModelForm()
     if request.method == "POST":
         form = LeadModelForm(request.POST)
